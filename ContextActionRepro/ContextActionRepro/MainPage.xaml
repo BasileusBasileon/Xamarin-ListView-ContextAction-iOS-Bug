@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:contextactionrepro="clr-namespace:ContextActionRepro"
+			 mc:Ignorable="d"
+             x:Class="ContextActionRepro.MainPage"
+			 x:Name="mainPage"
+			 xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+			 ios:Page.UseSafeArea="True">
+
+	<ContentPage.BindingContext>
+		<contextactionrepro:MainPageViewModel x:Name="VM"/>
+	</ContentPage.BindingContext>
+    <StackLayout>
+		<Label x:Name="tapCount" Text="Taps on Items: 0" />
+		<ListView ItemTapped="ListView_ItemTapped" >
+			<ListView.ItemsSource>
+				<x:Array Type="{x:Type x:String}">
+					<x:String>Item 1</x:String>
+					<x:String>Item 2</x:String>
+					<x:String>Item 3</x:String>
+					<x:String>Item 4</x:String>
+					<x:String>Item 5</x:String>
+					<x:String>Item 6</x:String>
+					<x:String>Item 7</x:String>
+					<x:String>Item 8</x:String>
+					<x:String>Item 9</x:String>
+				</x:Array>
+			</ListView.ItemsSource>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<ViewCell.ContextActions>
+							<MenuItem Text="ContextAction" IsDestructive="True" Command="{Binding Source={Reference VM}, Path=ContextCommand}" CommandParameter="{Binding .}"/>
+						</ViewCell.ContextActions>
+						<Label Text="{Binding .}"/>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+    </StackLayout>
+
+</ContentPage>
